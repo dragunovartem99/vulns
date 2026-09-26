@@ -7,13 +7,13 @@ severity: medium
 sink: |-
     location.href = params.get("next")
 payload: |-
-    /login?next=//evil.sh/fake-login
+    /login?next=//evil.sh
 fix: |
     const next = new URL(params.get("next") ?? "/", location.origin);
-    location.href = next.origin === location.origin ? next.href : "/";
+    if (next.origin === location.origin) location.href = next.href;
 refs:
     - https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html
     - https://portswigger.net/web-security/dom-based/open-redirection
 ---
 
-Your domain lends its trust to a phishing page; on an allowed OAuth `redirect_uri` it hands the code or token to the attacker. In the browser, `?next=javascript:…` is XSS. `//evil.sh` and `/\evil.sh` both leave your site, so compare parsed origins, never string prefixes.
+Your domain vouches for my phishing page, and in an OAuth `redirect_uri` it hands me the token. `//evil.sh` and `/\evil.sh` both pass a prefix check; compare parsed origins.

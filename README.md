@@ -6,24 +6,25 @@ Frontend vulnerabilities cheatsheet — one card per hole: where it lands, what 
 
 ## Catalog
 
-| Category     | Vulnerability                    | CWE                                                      | Severity |
-| ------------ | -------------------------------- | -------------------------------------------------------- | -------- |
-| injection    | DOM XSS through innerHTML        | [79](https://cwe.mitre.org/data/definitions/79.html)     | critical |
-| injection    | `javascript:` URLs in links      | [79](https://cwe.mitre.org/data/definitions/79.html)     | high     |
-| injection    | Prototype pollution              | [1321](https://cwe.mitre.org/data/definitions/1321.html) | high     |
-| injection    | DOM clobbering                   | [79](https://cwe.mitre.org/data/definitions/79.html)     | medium   |
-| injection    | CSS exfiltration                 | [200](https://cwe.mitre.org/data/definitions/200.html)   | medium   |
-| cross-origin | postMessage without origin check | [346](https://cwe.mitre.org/data/definitions/346.html)   | high     |
-| cross-origin | Open redirect                    | [601](https://cwe.mitre.org/data/definitions/601.html)   | medium   |
-| cross-origin | Clickjacking                     | [1021](https://cwe.mitre.org/data/definitions/1021.html) | medium   |
-| cross-origin | Cross-site request forgery       | [352](https://cwe.mitre.org/data/definitions/352.html)   | high     |
-| cross-origin | CORS reflecting any origin       | [942](https://cwe.mitre.org/data/definitions/942.html)   | critical |
-| secrets      | Tokens in localStorage           | [922](https://cwe.mitre.org/data/definitions/922.html)   | high     |
-| secrets      | Secrets in the bundle            | [540](https://cwe.mitre.org/data/definitions/540.html)   | critical |
-| supply-chain | Malicious dependency             | [506](https://cwe.mitre.org/data/definitions/506.html)   | critical |
-| supply-chain | Third-party script without SRI   | [829](https://cwe.mitre.org/data/definitions/829.html)   | high     |
-| logic        | Authorization in the client      | [602](https://cwe.mitre.org/data/definitions/602.html)   | critical |
-| logic        | Regular expression DoS           | [1333](https://cwe.mitre.org/data/definitions/1333.html) | medium   |
+| Category     | Vulnerability                      | CWE                                                      | Severity |
+| ------------ | ---------------------------------- | -------------------------------------------------------- | -------- |
+| injection    | DOM XSS through innerHTML          | [79](https://cwe.mitre.org/data/definitions/79.html)     | critical |
+| injection    | Server state inlined into a script | [79](https://cwe.mitre.org/data/definitions/79.html)     | high     |
+| injection    | `javascript:` URLs in links        | [79](https://cwe.mitre.org/data/definitions/79.html)     | high     |
+| injection    | Prototype pollution                | [1321](https://cwe.mitre.org/data/definitions/1321.html) | high     |
+| injection    | DOM clobbering                     | [79](https://cwe.mitre.org/data/definitions/79.html)     | medium   |
+| injection    | CSS exfiltration                   | [200](https://cwe.mitre.org/data/definitions/200.html)   | medium   |
+| cross-origin | postMessage without origin check   | [346](https://cwe.mitre.org/data/definitions/346.html)   | high     |
+| cross-origin | Open redirect                      | [601](https://cwe.mitre.org/data/definitions/601.html)   | medium   |
+| cross-origin | Clickjacking                       | [1021](https://cwe.mitre.org/data/definitions/1021.html) | medium   |
+| cross-origin | Cross-site request forgery         | [352](https://cwe.mitre.org/data/definitions/352.html)   | high     |
+| cross-origin | CORS reflecting any origin         | [942](https://cwe.mitre.org/data/definitions/942.html)   | critical |
+| secrets      | Tokens in localStorage             | [922](https://cwe.mitre.org/data/definitions/922.html)   | high     |
+| secrets      | Secrets in the bundle              | [540](https://cwe.mitre.org/data/definitions/540.html)   | critical |
+| supply-chain | Malicious dependency               | [506](https://cwe.mitre.org/data/definitions/506.html)   | critical |
+| supply-chain | Third-party script without SRI     | [829](https://cwe.mitre.org/data/definitions/829.html)   | high     |
+| logic        | Authorization in the client        | [602](https://cwe.mitre.org/data/definitions/602.html)   | critical |
+| logic        | Regular expression DoS             | [1333](https://cwe.mitre.org/data/definitions/1333.html) | medium   |
 
 ## Stack
 
@@ -61,7 +62,7 @@ Add one Markdown file to `src/content/vulns/`. The frontmatter is validated by t
 order: 8 # position within its category
 cwe: 352 # real MITRE CWE id
 title: Cross-site request forgery
-category: secrets # injection | cross-origin | secrets | supply-chain | logic
+category: cross-origin # injection | cross-origin | secrets | supply-chain | logic
 severity: high # critical | high | medium
 sink: |-
     Cookie-authenticated POST /api/email

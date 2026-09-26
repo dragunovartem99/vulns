@@ -9,11 +9,9 @@ sink: |-
 payload: |-
     "a".repeat(40) + "!"
 fix: |
-    // no nested quantifiers over overlapping classes: (a+)+, (\w+\s?)*
-    // cap input length before matching
-    // lint: eslint-plugin-regexp / no-super-linear-backtracking
+    // no nested quantifiers like (a+)+; cap the length first
 refs:
     - https://community.owasp.org/attacks/Regular_expression_Denial_of_Service_-_ReDoS
 ---
 
-Backtracking regex engines try every way to split the input before failing, and the number of ways grows exponentially with its length. Forty characters freeze a browser tab; on a Node server, one request freezes it for every user.
+Forty characters and your regex tries every way to split them. The tab freezes; on a Node server, it freezes for every user.

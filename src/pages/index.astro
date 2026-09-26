@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
+import Baseline from "@/components/Baseline.astro";
 import GlitchText from "@/components/GlitchText.astro";
 import Terminal from "@/components/Terminal.astro";
 import VulnCard from "@/components/VulnCard.astro";
@@ -28,7 +29,7 @@ const reading = sections.flatMap((section) => section.entries);
 			<GlitchText text="VULNS" />
 		</h1>
 		<p class="lede">
-			Where untrusted input lands, what an attacker sends, and the line that stops it.
+			You write the sink. I send the payload. Each card has the line that stops me.
 		</p>
 		<Terminal count={entries.length} />
 	</header>
@@ -44,6 +45,12 @@ const reading = sections.flatMap((section) => section.entries);
 					</a>
 				</li>
 			))}
+			<li>
+				<a href="#baseline">
+					<span class="label">{String(sections.length + 1).padStart(2, "0")}</span>
+					ship these
+				</a>
+			</li>
 		</ol>
 	</nav>
 
@@ -58,6 +65,7 @@ const reading = sections.flatMap((section) => section.entries);
 				))}
 			</section>
 		))}
+		<Baseline />
 	</div>
 
 	<footer class="footer wrap" slot="footer">
