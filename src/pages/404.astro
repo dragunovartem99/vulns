@@ -1,0 +1,35 @@
+---
+import GlitchText from "@/components/GlitchText.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { withBase } from "@/links";
+---
+
+<BaseLayout title="404 — VULNS" description="Nothing here." noindex>
+	<div class="lost wrap">
+		<p class="label">// segmentation fault</p>
+		<h1 class="code">
+			<GlitchText text="404" />
+		</h1>
+		<p>This path was never mapped. Or it was, and someone wiped it.</p>
+		<a href={withBase("/")}>&gt; return to the cheatsheet</a>
+	</div>
+</BaseLayout>
+
+<style>
+	.lost {
+		display: grid;
+		gap: var(--space-m);
+		align-content: center;
+		min-height: 80vh;
+	}
+
+	.code {
+		font-size: var(--step-hero);
+		line-height: 0.85;
+		letter-spacing: -0.06em;
+	}
+
+	a {
+		color: var(--color-red);
+	}
+</style>

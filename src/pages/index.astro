@@ -1,0 +1,136 @@
+---
+import { getCollection } from "astro:content";
+
+import GlitchText from "@/components/GlitchText.astro";
+import Terminal from "@/components/Terminal.astro";
+import VulnCard from "@/components/VulnCard.astro";
+import { CATEGORIES } from "@/content.config";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const entries = (await getCollection("vulns")).toSorted((a, b) => a.data.order - b.data.order);
+
+const sections = CATEGORIES.map((category) => ({
+	category,
+	entries: entries.filter((entry) => entry.data.category === category),
+})).filter((section) => section.entries.length > 0);
+
+// Cards are numbered in the order they appear, which is by section first.
+const reading = sections.flatMap((section) => section.entries);
+---
+
+<BaseLayout
+	title="VULNS — frontend attack cheatsheet"
+	description="Sinks, payloads and fixes for the ways a frontend gets owned: XSS, prototype pollution, CSRF, CORS, supply chain and more."
+>
+	<header class="hero wrap" slot="header">
+		<p class="label">// frontend attack surface</p>
+		<h1 class="name">
+			<GlitchText text="VULNS" />
+		</h1>
+		<p class="lede">
+			Where untrusted input lands, what an attacker sends, and the line that stops it.
+		</p>
+		<Terminal count={entries.length} />
+	</header>
+
+	<nav class="index wrap" aria-label="Categories">
+		<ol>
+			{sections.map(({ category, entries: items }, index) => (
+				<li>
+					<a href={`#${category}`}>
+						<span class="label">{String(index + 1).padStart(2, "0")}</span>
+						{category}
+						<span class="count">[{items.length}]</span>
+					</a>
+				</li>
+			))}
+		</ol>
+	</nav>
+
+	<div class="wrap">
+		{sections.map(({ category, entries: items }) => (
+			<section id={category} class="section" aria-labelledby={`${category}-heading`}>
+				<h2 id={`${category}-heading`} class="section-title">
+					<span class="slash">//</span> {category}
+				</h2>
+				{items.map((entry) => (
+					<VulnCard entry={entry} index={reading.indexOf(entry) + 1} total={reading.length} />
+				))}
+			</section>
+		))}
+	</div>
+
+	<footer class="footer wrap" slot="footer">
+		<p>
+			This page ships a strict Content-Security-Policy, no inline handlers, no third-party requests.
+			Found a hole in it? That would be ironic.
+		</p>
+		<p>
+			<a href="https://dragunov.dev">Artem Dragunov</a> ·{" "}
+			<a href="https://github.com/dragunovartem99/vulns">source</a>
+		</p>
+	</footer>
+</BaseLayout>
+
+<style>
+	.hero {
+		display: grid;
+		gap: var(--space-m);
+		padding-block: var(--space-xl) var(--space-l);
+	}
+
+	.name {
+		font-size: var(--step-hero);
+		line-height: 0.85;
+		letter-spacing: -0.06em;
+	}
+
+	.lede {
+		max-width: 40ch;
+		font-size: var(--step-1);
+		color: var(--color-text-muted);
+	}
+
+	.index ol {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs) var(--space-l);
+		padding-block: var(--space-m);
+		border-block: 1px solid var(--color-line);
+	}
+
+	.index a {
+		display: inline-flex;
+		gap: var(--space-xs);
+		align-items: baseline;
+		text-decoration: none;
+	}
+
+	.count {
+		color: var(--color-red);
+	}
+
+	.section {
+		padding-block-start: var(--space-xl);
+		scroll-margin-top: var(--space-m);
+	}
+
+	.section-title {
+		padding-block-end: var(--space-m);
+		font-size: var(--step-1);
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	.slash {
+		color: var(--color-red);
+	}
+
+	.footer {
+		display: grid;
+		gap: var(--space-s);
+		padding-block: var(--space-xl);
+		font-size: var(--step--1);
+		color: var(--color-text-faint);
+	}
+</style>

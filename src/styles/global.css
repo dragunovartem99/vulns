@@ -1,0 +1,143 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font);
+	font-size: var(--step-0);
+	line-height: 1.6;
+	/* JetBrains Mono draws "=>" as an arrow and "!=" as a slashed equals. On a
+	   page of payloads to copy, every character must look like what it is. */
+	font-variant-ligatures: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	line-height: 1.1;
+	font-weight: 800;
+	text-wrap: balance;
+}
+
+p {
+	margin: 0;
+	text-wrap: pretty;
+}
+
+pre,
+code {
+	font-family: inherit;
+}
+
+a {
+	color: inherit;
+	text-decoration-color: var(--color-text-faint);
+	text-underline-offset: 0.25em;
+}
+
+a:hover {
+	color: var(--color-red);
+	text-decoration-color: currentColor;
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-red);
+	outline-offset: 3px;
+}
+
+::selection {
+	background: var(--color-red);
+	color: var(--color-bg);
+}
+
+ul,
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wrap {
+	width: 100%;
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding-inline: var(--space-m);
+}
+
+@media (min-width: 48rem) {
+	.wrap {
+		padding-inline: var(--space-l);
+	}
+}
+
+/* Section labels and metadata: small, spaced, uppercase. */
+.label {
+	font-size: var(--step--1);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--color-text-faint);
+}
+
+.skip-link {
+	position: absolute;
+	inset-inline-start: var(--space-m);
+	inset-block-start: var(--space-m);
+	z-index: 1000;
+	padding: var(--space-xs) var(--space-s);
+	background: var(--color-bg);
+	border: 1px solid var(--color-red);
+	transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+	transform: none;
+}
+
+/* A triggered burst: the page itself jolts while the overlay tears. Transform
+   only on the container, so the compositor moves one layer. */
+@media (prefers-reduced-motion: no-preference) {
+	.is-glitching main {
+		animation: jolt 260ms steps(1) both;
+	}
+}
+
+@keyframes jolt {
+	0% {
+		transform: translate(-6px, 0) skewX(-4deg);
+	}
+	25% {
+		transform: translate(5px, 2px);
+	}
+	50% {
+		transform: translate(-3px, -1px) skewX(2deg);
+	}
+	75% {
+		transform: translate(2px, 0);
+	}
+	100% {
+		transform: none;
+	}
+}

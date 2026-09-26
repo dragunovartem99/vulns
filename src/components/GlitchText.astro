@@ -1,0 +1,103 @@
+---
+/**
+ * Text that tears: two copies of it, one red, sliced and shifted on a jagged
+ * loop. Pure CSS on pseudo-elements — clip-path and transform only — so the
+ * real text stays selectable and screen readers hear it once.
+ */
+type Props = {
+	text: string;
+	as?: "h1" | "h2" | "span";
+};
+
+const { text, as: Tag = "span" } = Astro.props;
+---
+
+<Tag class="glitch" data-text={text}>
+	{text}
+</Tag>
+
+<style>
+	.glitch {
+		position: relative;
+		display: inline-block;
+	}
+
+	.glitch::before,
+	.glitch::after {
+		content: attr(data-text);
+		position: absolute;
+		inset: 0;
+		clip-path: inset(100% 0 0 0);
+		pointer-events: none;
+	}
+
+	.glitch::before {
+		color: var(--color-red);
+	}
+
+	.glitch::after {
+		color: var(--color-text);
+		background: var(--color-bg);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.glitch::before {
+			animation: tear-a 3.3s steps(1) infinite;
+		}
+
+		.glitch::after {
+			animation: tear-b 4.1s steps(1) infinite;
+		}
+
+		:global(.is-glitching) .glitch::before,
+		:global(.is-glitching) .glitch::after {
+			animation-duration: 0.3s;
+		}
+	}
+
+	@keyframes tear-a {
+		0%,
+		84% {
+			clip-path: inset(100% 0 0 0);
+			transform: none;
+		}
+		86% {
+			clip-path: inset(8% 0 72% 0);
+			transform: translate(-0.05em, 0);
+		}
+		88% {
+			clip-path: inset(48% 0 30% 0);
+			transform: translate(0.04em, 0);
+		}
+		90% {
+			clip-path: inset(78% 0 6% 0);
+			transform: translate(-0.03em, 0);
+		}
+		92%,
+		100% {
+			clip-path: inset(100% 0 0 0);
+			transform: none;
+		}
+	}
+
+	@keyframes tear-b {
+		0%,
+		90% {
+			clip-path: inset(100% 0 0 0);
+			transform: none;
+		}
+		91% {
+			clip-path: inset(30% 0 52% 0);
+			transform: translate(0.06em, 0);
+		}
+		93% {
+			clip-path: inset(62% 0 18% 0);
+			transform: translate(-0.04em, 0);
+		}
+		95%,
+		100% {
+			clip-path: inset(100% 0 0 0);
+			transform: none;
+		}
+	}
+</style>

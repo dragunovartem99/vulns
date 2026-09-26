@@ -1,0 +1,45 @@
+:root {
+	--color-bg: #050505;
+	--color-surface: #0b0b0b;
+	--color-text: #ececec;
+	--color-text-muted: rgb(236 236 236 / 0.68);
+	/* 0.52 is the floor that still clears 4.5:1 on --color-bg once blended. */
+	--color-text-faint: rgb(236 236 236 / 0.52);
+	--color-line: rgb(236 236 236 / 0.14);
+	/* The only colour on the page, and it always means danger. Mirrored as
+	   linear channels in `modules/glitch/palette.ts` for the shader. */
+	--color-red: #ff2b2b;
+	--color-red-line: rgb(255 43 43 / 0.45);
+	--color-red-wash: rgb(255 43 43 / 0.08);
+
+	/* --font-mono is injected by Astro's font pipeline with its own fallbacks. */
+	--font: var(--font-mono);
+
+	--step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
+	--step-0: clamp(0.9rem, 0.87rem + 0.15vw, 0.98rem);
+	--step-1: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+	--step-2: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+	--step-hero: clamp(4.5rem, 2rem + 16vw, 13rem);
+
+	--space-2xs: 0.25rem;
+	--space-xs: 0.5rem;
+	--space-s: 0.75rem;
+	--space-m: 1.25rem;
+	--space-l: 2rem;
+	--space-xl: 3.5rem;
+	--space-2xl: 6rem;
+
+	--measure: 70ch;
+	--content-width: 72rem;
+
+	--duration: 140ms;
+	--duration-entrance: 700ms;
+	--ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--duration: 1ms;
+		--duration-entrance: 1ms;
+	}
+}

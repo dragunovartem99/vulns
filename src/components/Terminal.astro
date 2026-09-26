@@ -1,0 +1,96 @@
+---
+/**
+ * The intro: a grep over an ordinary codebase, typed out once on load. No
+ * theatrics — three lines anyone has written, each one a way in. CSS only, so
+ * it costs nothing and needs no script; the final line stays, with a cursor.
+ */
+type Props = {
+	count: number;
+};
+
+const { count } = Astro.props;
+
+const lines = [
+	'$ grep -rnE "innerHTML|onmessage|token" src',
+	"src/Bio.vue:41:  el.innerHTML = user.bio",
+	"src/embed.ts:12:  onmessage = (e) => run(e.data)",
+	"src/auth.ts:8:  localStorage.token = jwt",
+];
+---
+
+<div class="terminal" role="img" aria-label="A code search finding three unsafe lines">
+	{lines.map((line) => (
+		<p class="line">{line}</p>
+	))}
+	<p class="line is-alert">
+		3 hits. {count} ways in. read on
+		<span class="cursor" />
+	</p>
+</div>
+
+<style>
+	.terminal {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2xs);
+		padding: var(--space-m);
+		border: 1px solid var(--color-line);
+		background: var(--color-surface);
+		font-size: var(--step--1);
+		color: var(--color-text-muted);
+		overflow-x: auto;
+	}
+
+	.line {
+		white-space: pre;
+	}
+
+	.is-alert {
+		color: var(--color-red);
+	}
+
+	.cursor {
+		display: inline-block;
+		width: 0.6em;
+		height: 1.1em;
+		margin-inline-start: 0.2em;
+		vertical-align: text-bottom;
+		background: currentColor;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.line {
+			clip-path: inset(0 100% 0 0);
+			animation: type 0.5s steps(40, end) forwards;
+		}
+
+		.line:nth-child(2) {
+			animation-delay: 0.6s;
+		}
+		.line:nth-child(3) {
+			animation-delay: 1.2s;
+		}
+		.line:nth-child(4) {
+			animation-delay: 1.8s;
+		}
+		.line:nth-child(5) {
+			animation-delay: 2.4s;
+		}
+
+		.cursor {
+			animation: blink 1s steps(1) infinite;
+		}
+	}
+
+	@keyframes type {
+		to {
+			clip-path: inset(0 0 0 0);
+		}
+	}
+
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+</style>

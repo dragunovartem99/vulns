@@ -1,0 +1,287 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+
+type Props = {
+	entry: CollectionEntry<"vulns">;
+	/** 1-based position across the whole sheet, and its length — the "03 / 14" tag. */
+	index: number;
+	total: number;
+};
+
+const { entry, index, total } = Astro.props;
+const { cwe, title, severity, sink, payload, fix, refs } = entry.data;
+const { Content } = await render(entry);
+
+const cweUrl = `https://cwe.mitre.org/data/definitions/${cwe}.html`;
+const pad = (n: number): string => String(n).padStart(2, "0");
+---
+
+<article class="card" id={entry.id} data-severity={severity}>
+	<header class="head">
+		<a class="index label" href={`#${entry.id}`}>
+			{pad(index)} / {pad(total)}
+		</a>
+		<a
+			class="cwe label"
+			href={cweUrl}
+			rel="noreferrer noopener"
+			title="Common Weakness Enumeration"
+		>
+			CWE-{cwe}
+		</a>
+		<span class="severity label">{severity}</span>
+	</header>
+
+	<h3 class="title">{title}</h3>
+
+	<p class="sink">
+		<span class="label">Sink</span>
+		<span class="arrow" aria-hidden="true">
+			→
+		</span>
+		<code>{sink}</code>
+	</p>
+
+	{/* Attack against defence: side by side where there is room, stacked where not. */}
+	<div class="duel">
+		<figure class="panel is-attack">
+			<figcaption class="bar">
+				<span class="tag label">▲ Payload</span>
+				{/* Revealed by the script: without JavaScript the text is still selectable. */}
+				<button class="copy label" type="button" data-copy={payload} hidden>
+					Copy
+				</button>
+			</figcaption>
+			<pre><code>{payload}</code></pre>
+		</figure>
+
+		<figure class="panel is-defence">
+			<figcaption class="bar">
+				<span class="tag label">■ Fix</span>
+			</figcaption>
+			<pre><code>{fix.trim()}</code></pre>
+		</figure>
+	</div>
+
+	<div class="body">
+		<Content />
+	</div>
+
+	<ul class="refs">
+		{refs.map((ref) => (
+			<li>
+				<a href={ref} rel="noreferrer noopener">
+					{new URL(ref).hostname}
+				</a>
+			</li>
+		))}
+	</ul>
+</article>
+
+<script>
+	import { burst } from "@/modules/glitch";
+
+	const COPIED_MS = 1400;
+
+	/** Arming a payload hits the whole screen; merely looking at one makes it flinch. */
+	const COPY_STRENGTH = 1;
+	const HOVER_STRENGTH = 0.5;
+
+	for (const button of document.querySelectorAll<HTMLButtonElement>("button[data-copy]")) {
+		button.hidden = false;
+		button.addEventListener("click", async () => {
+			burst({ strength: COPY_STRENGTH });
+			await navigator.clipboard.writeText(button.dataset.copy ?? "");
+			button.textContent = "Armed";
+			setTimeout(() => (button.textContent = "Copy"), COPIED_MS);
+		});
+	}
+
+	for (const panel of document.querySelectorAll(".is-attack")) {
+		panel.addEventListener("pointerenter", () => burst({ strength: HOVER_STRENGTH }));
+	}
+</script>
+
+<style>
+	.card {
+		display: grid;
+		gap: var(--space-m);
+		padding-block: var(--space-xl);
+		border-top: 1px solid var(--color-line);
+		scroll-margin-top: var(--space-l);
+	}
+
+	.head {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s);
+		align-items: center;
+	}
+
+	.index {
+		color: var(--color-text-faint);
+		text-decoration: none;
+	}
+
+	.cwe {
+		padding: 0 var(--space-xs);
+		border: 1px solid var(--color-line);
+		color: var(--color-text-muted);
+		text-decoration: none;
+	}
+
+	.cwe:hover {
+		border-color: var(--color-text);
+		color: var(--color-text);
+	}
+
+	.severity {
+		padding: 0 var(--space-xs);
+		border: 1px solid var(--color-line);
+	}
+
+	[data-severity="high"] .severity {
+		border-color: var(--color-red-line);
+		color: var(--color-red);
+	}
+
+	[data-severity="critical"] .severity {
+		border-color: var(--color-red);
+		background: var(--color-red);
+		color: var(--color-bg);
+		font-weight: 800;
+	}
+
+	.title {
+		font-size: var(--step-2);
+		letter-spacing: -0.02em;
+	}
+
+	/* Inline flow rather than flex, so a long sink wraps under its label
+	   instead of dropping to a line of its own. */
+	.arrow {
+		margin-inline: var(--space-xs);
+		color: var(--color-red);
+	}
+
+	.sink code {
+		color: var(--color-text);
+		overflow-wrap: anywhere;
+	}
+
+	.duel {
+		display: grid;
+		gap: var(--space-m);
+	}
+
+	@media (min-width: 60rem) {
+		.duel {
+			grid-template-columns: 1fr 1fr;
+			align-items: start;
+		}
+	}
+
+	/* A panel reads as a readout: a title bar over the code, and corner brackets
+	   instead of a closed box — the HUD look without another hairline frame. */
+	.panel {
+		--tone: var(--color-text);
+		--tone-line: var(--color-line);
+
+		position: relative;
+		margin: 0;
+		min-width: 0;
+		border: 1px solid var(--tone-line);
+		background: var(--color-surface);
+	}
+
+	.panel.is-attack {
+		--tone: var(--color-red);
+		--tone-line: var(--color-red-line);
+
+		background: var(--color-red-wash);
+	}
+
+	.panel::before,
+	.panel::after {
+		content: "";
+		position: absolute;
+		width: var(--space-s);
+		height: var(--space-s);
+		border: 2px solid var(--tone);
+		pointer-events: none;
+	}
+
+	.panel::before {
+		inset: -1px auto auto -1px;
+		border-width: 2px 0 0 2px;
+	}
+
+	.panel::after {
+		inset: auto -1px -1px auto;
+		border-width: 0 2px 2px 0;
+	}
+
+	.bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-s);
+		min-height: 2.25rem;
+		padding: var(--space-2xs) var(--space-xs) var(--space-2xs) var(--space-m);
+		border-bottom: 1px solid var(--tone-line);
+	}
+
+	.tag {
+		color: var(--tone);
+	}
+
+	pre {
+		margin: 0;
+		padding: var(--space-m);
+		font-size: var(--step--1);
+		line-height: 1.7;
+		/* Long payloads wrap rather than scroll: a cheatsheet is read, not panned. */
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
+		color: var(--tone);
+	}
+
+	.copy {
+		padding: 0 var(--space-xs);
+		border: 1px solid var(--color-red-line);
+		background: transparent;
+		color: var(--color-red);
+		font-family: inherit;
+		cursor: pointer;
+		transition:
+			background var(--duration) var(--ease),
+			color var(--duration) var(--ease);
+	}
+
+	.copy:hover {
+		background: var(--color-red);
+		color: var(--color-bg);
+	}
+
+	.body {
+		max-width: var(--measure);
+		color: var(--color-text-muted);
+	}
+
+	.body :global(code) {
+		color: var(--color-text);
+	}
+
+	.refs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-m);
+		font-size: var(--step--1);
+		color: var(--color-text-faint);
+	}
+
+	.refs a::before {
+		content: "↗ ";
+	}
+</style>

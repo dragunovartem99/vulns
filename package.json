@@ -1,0 +1,44 @@
+{
+	"name": "vulns",
+	"private": true,
+	"description": "Frontend vulnerabilities cheatsheet",
+	"homepage": "https://dragunovartem99.github.io/vulns",
+	"author": {
+		"name": "Artem Dragunov",
+		"email": "dragunovartem99@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dragunovartem99/vulns.git"
+	},
+	"type": "module",
+	"scripts": {
+		"build": "astro build",
+		"dev": "astro dev",
+		"format": "oxfmt --write && prettier --write \"**/*.astro\"",
+		"format:check": "oxfmt --check && prettier --check \"**/*.astro\"",
+		"lint": "oxlint --fix",
+		"lint:check": "oxlint",
+		"prepare": "husky",
+		"preview": "astro preview",
+		"test": "vitest",
+		"types:check": "astro check"
+	},
+	"dependencies": {
+		"astro": "^7.3.5"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.10",
+		"@dragunovartem99/oxfmt-config": "^2.1.0",
+		"@dragunovartem99/oxlint-config": "^3.0.1",
+		"@types/node": "^26.6.3",
+		"husky": "^9.1.7",
+		"prettier": "^3.9.9",
+		"prettier-plugin-astro": "^1.1.0",
+		"typescript": "~5.9.3",
+		"vitest": "^5.0.2"
+	},
+	"engines": {
+		"node": ">=24"
+	}
+}
