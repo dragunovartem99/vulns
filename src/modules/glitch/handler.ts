@@ -7,7 +7,7 @@
 import { createRenderer } from "./renderer";
 import type { Renderer } from "./renderer";
 import type { DriverMessage, GlitchMessage } from "./types";
-import { burstEnvelope, idleEnvelope, TRIGGERED_DURATION } from "./utils/envelope";
+import { BURST_DURATION, burstEnvelope } from "./utils/envelope";
 
 /**
  * The buffer is drawn at half the CSS size and stretched. Grain and scanlines
@@ -41,13 +41,11 @@ function draw(now: number): void {
 	if (!renderer) return;
 
 	const time = seconds(now);
+	// At rest only the grain moves; the signal fails only when the reader
+	// touches a payload.
 	const glitch = still
 		? 0
-		: Math.max(
-				idleEnvelope({ time }),
-				burstStrength *
-					burstEnvelope({ time, start: burstStart, duration: TRIGGERED_DURATION })
-			);
+		: burstStrength * burstEnvelope({ time, start: burstStart, duration: BURST_DURATION });
 
 	// Under reduced motion the one frame drawn is frozen at t = 0, so the grain
 	// never shifts between redraws on resize.

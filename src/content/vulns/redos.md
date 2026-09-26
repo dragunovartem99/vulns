@@ -1,5 +1,5 @@
 ---
-order: 14
+order: 2
 cwe: 1333
 title: Regular expression DoS
 category: logic
@@ -16,4 +16,4 @@ refs:
     - https://community.owasp.org/attacks/Regular_expression_Denial_of_Service_-_ReDoS
 ---
 
-Backtracking regex engines try every way to split the input before failing — exponential in its length. Forty characters freeze a tab in the browser; on a Node server one request freezes every user.
+Backtracking regex engines try every way to split the input before failing, and the number of ways grows exponentially with its length. Forty characters freeze a browser tab; on a Node server, one request freezes it for every user.

@@ -3,7 +3,13 @@ import { z } from "astro/zod";
 import { defineCollection } from "astro:content";
 
 /** Where in the stack the hole is — also the order sections appear in. */
-export const CATEGORIES = ["injection", "browser", "session", "supply-chain", "logic"] as const;
+export const CATEGORIES = [
+	"injection",
+	"cross-origin",
+	"secrets",
+	"supply-chain",
+	"logic",
+] as const;
 
 /** How bad it gets when it lands. Red density on the card scales with it. */
 export const SEVERITIES = ["critical", "high", "medium"] as const;

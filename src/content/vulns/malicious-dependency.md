@@ -1,5 +1,5 @@
 ---
-order: 12
+order: 1
 cwe: 506
 title: Malicious dependency
 category: supply-chain
@@ -18,4 +18,4 @@ refs:
     - https://pnpm.io/settings#onlybuiltdependencies
 ---
 
-In September 2025 the Shai-Hulud worm spread through 500+ npm packages: an install script harvested npm, GitHub and cloud tokens, then used them to publish itself into the victim's own packages. The same month, a phished maintainer shipped a crypto-stealer inside `chalk` and `debug` — no install script, straight into bundles. Pin with a lockfile, block install scripts, and keep deploy credentials out of the install step.
+In September 2025 the Shai-Hulud worm spread through 500+ npm packages: its install script stole npm, GitHub and cloud tokens, then used them to publish itself into the victim's own packages. The same month, a phished maintainer shipped a crypto-stealer inside `chalk` and `debug` — no install script, straight into bundles. Commit the lockfile, block install scripts, and keep deploy credentials out of the install step.

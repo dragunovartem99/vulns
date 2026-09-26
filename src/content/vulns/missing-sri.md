@@ -1,5 +1,5 @@
 ---
-order: 13
+order: 2
 cwe: 829
 title: Third-party script without SRI
 category: supply-chain
@@ -15,4 +15,4 @@ refs:
     - https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Subresource_Integrity
 ---
 
-A script tag is full trust in someone else's server. When a CDN or its domain changes hands — as `polyfill.io` did — every site embedding it serves the new owner's code. An `integrity` hash makes the browser refuse any byte that changed — but only for pinned, static files. polyfill.io served different code per browser, so it could never be hashed. Self-hosting removes the question.
+A script tag trusts someone else's server completely. When `polyfill.io` changed owners, every site embedding it started serving the new owner's code. An `integrity` hash makes the browser reject any changed byte, but only works for pinned, static files — polyfill.io built its response per browser. Self-hosting avoids the question.

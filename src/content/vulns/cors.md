@@ -1,8 +1,8 @@
 ---
-order: 9
+order: 5
 cwe: 942
 title: CORS reflecting any origin
-category: session
+category: cross-origin
 severity: critical
 sink: |-
     Access-Control-Allow-Origin: <request Origin> + Allow-Credentials: true
@@ -18,4 +18,4 @@ refs:
     - https://portswigger.net/web-security/cors
 ---
 
-Echoing the `Origin` header with credentials allowed lets any website read authenticated API responses as the logged-in user. Also watch for regexes like `/example\.com$/` (matches `evilexample.com`) and trusting the `null` origin, which sandboxed iframes send.
+Reflecting any `Origin` with credentials allowed lets every website read your API's responses as the logged-in user. Also watch for regexes like `/example\.com$/`, which matches `evilexample.com`, and for trusting the `null` origin, which sandboxed iframes send.

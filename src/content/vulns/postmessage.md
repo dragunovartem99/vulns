@@ -1,8 +1,8 @@
 ---
-order: 4
+order: 1
 cwe: 346
 title: postMessage without origin check
-category: browser
+category: cross-origin
 severity: high
 sink: |-
     addEventListener("message", (e) => (el.innerHTML = e.data.html))
@@ -19,4 +19,4 @@ refs:
     - https://portswigger.net/web-security/dom-based/controlling-the-web-message-source
 ---
 
-Any page that can get a handle to your window — an opener, a parent frame, a popup — can message it. Check `event.origin` exactly (no `includes`, no `endsWith`), and send with an explicit target origin instead of `"*"`, or secrets leak to whoever holds the frame.
+Any page holding a reference to your window — its opener, a parent frame, a popup — can message it. Check `event.origin` with `===`, never `includes` or `endsWith`. When sending, name the target origin instead of `"*"`, or the data goes to whoever is loaded in that frame.

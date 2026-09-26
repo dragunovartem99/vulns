@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 5
 cwe: 200
 title: CSS exfiltration
 category: injection
@@ -17,4 +17,4 @@ refs:
     - https://portswigger.net/research/blind-css-exfiltration
 ---
 
-No script needed: one selector per possible character leaks a token prefix by prefix through background-image requests. `:has()` matters — a hidden input is never rendered, so a background on the input itself never loads. Injected styles also redraw the page — a fake login box over your real one. A strict `img-src` and `style-src` close the channel.
+No script needed: one selector per possible character leaks a token, character by character, through background-image requests. It needs `:has()` because a hidden input is never rendered, so a background on the input itself never loads. Injected CSS can also draw a fake login form over the real one. A strict `style-src` and `img-src` close the channel.

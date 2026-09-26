@@ -18,4 +18,4 @@ refs:
     - https://portswigger.net/web-security/prototype-pollution
 ---
 
-`JSON.parse` keeps `__proto__` as a plain key; a recursive merge or query-string parser then does `target["__proto__"]` and writes onto `Object.prototype`. Now `({}).isAdmin` is `true` everywhere. Chained with a gadget — a library reading an unset option into a sink — it becomes XSS.
+`JSON.parse` keeps `__proto__` as an ordinary key. A recursive merge then writes through it onto `Object.prototype`, and `({}).isAdmin` is `true` everywhere. Combined with a library that reads an unset option into a sink, it becomes XSS.

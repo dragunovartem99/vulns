@@ -1,8 +1,8 @@
 ---
-order: 7
+order: 1
 cwe: 922
 title: Tokens in localStorage
-category: session
+category: secrets
 severity: high
 sink: |-
     localStorage.setItem("token", jwt)
@@ -14,4 +14,4 @@ refs:
     - https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#local-storage
 ---
 
-Storage is readable by every script on the origin — one XSS, one compromised dependency, and the token walks. An `HttpOnly` cookie cannot be read by JavaScript at all; the attacker has to ride the session live instead of stealing it for later. Cookies bring CSRF back, so pair them with its defences.
+Every script on the origin can read storage, so one XSS or one compromised dependency steals the token. JavaScript cannot read an `HttpOnly` cookie at all: the attacker can only act while the victim's tab is open, not take the session with them. Cookies bring CSRF back, so add its defences.

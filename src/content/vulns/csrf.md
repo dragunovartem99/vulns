@@ -1,8 +1,8 @@
 ---
-order: 8
+order: 4
 cwe: 352
 title: Cross-site request forgery
-category: session
+category: cross-origin
 severity: high
 sink: |-
     Cookie-authenticated POST /api/email
@@ -20,4 +20,4 @@ refs:
     - https://portswigger.net/web-security/csrf/bypassing-samesite-restrictions
 ---
 
-The browser attaches cookies to cross-site form posts: change the account email, then reset the password. Only Chrome defaults cookies to `SameSite=Lax` — set it explicitly. Even then it misses `GET` endpoints that change state, and sibling subdomains, which count as same-site.
+Browsers attach cookies to form posts from other sites, so a hidden form can change the victim's email, then reset their password. Only Chromium defaults cookies to `SameSite=Lax` — set it explicitly. Even then, `GET` endpoints that change state and sibling subdomains, which count as same-site, stay exposed.

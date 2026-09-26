@@ -18,4 +18,4 @@ refs:
     - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
 ---
 
-Vue and Svelte bind URLs as-is; only React 19 and Angular neutralise `javascript:`. A profile "website" field bound to `href`, `formaction` or an iframe `src`, or assigned to `location`, runs script on click. Parse with `URL` and allow-list protocols — never block-list the string `javascript:`; tabs, newlines and entity encoding bypass it.
+A profile “website” bound to `href` runs script on click. Vue and Svelte pass URLs through as-is; only React 19 and Angular block `javascript:`. The same applies to `formaction`, iframe `src` and `location`. Parse with `URL` and allow-list protocols — a block-list on the string `javascript:` is bypassed with tabs, newlines or entities.

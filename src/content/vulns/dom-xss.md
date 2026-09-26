@@ -17,4 +17,4 @@ refs:
     - https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API
 ---
 
-`<script>` inserted via `innerHTML` never runs — event handlers on other elements do. The same sink hides behind `v-html`, `dangerouslySetInnerHTML`, `insertAdjacentHTML`, `outerHTML` and `document.write`. Anything reaching them from a URL, `postMessage`, storage or an API is attacker-controlled.
+`<script>` added through `innerHTML` never runs, but event handlers like `onerror` do. The same sink hides behind `v-html`, `dangerouslySetInnerHTML`, `insertAdjacentHTML`, `outerHTML` and `document.write`. Treat anything from the URL, `postMessage`, storage or an API as attacker-controlled.
