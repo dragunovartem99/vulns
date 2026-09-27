@@ -1,8 +1,8 @@
 ---
-order: 3
 cwe: 79
+owasp: A05
 title: "javascript: URLs in links"
-category: injection
+category: content
 severity: high
 sink: |-
     <a :href="user.website">
@@ -11,6 +11,13 @@ payload: |-
 fix: |
     const url = new URL(input, location.origin);
     if (url.protocol !== "https:") throw new Error("blocked");
+detect:
+    - ':href="'
+    - 'href=\{'
+    - 'location\.href\s*='
+    - 'window\.open\('
+verify: "Set the field to `javascript:alert(1)` and click the link."
+fineWhen: "The URL is parsed and only `https:` (or a fixed list) gets through, or the framework blocks `javascript:` — React 19 and Angular do."
 refs:
     - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
 ---

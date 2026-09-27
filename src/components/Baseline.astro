@@ -5,8 +5,9 @@
  */
 const lines = [
 	"# response headers",
-	"Content-Security-Policy: script-src 'self'; object-src 'none'; base-uri 'none';",
-	"  frame-ancestors 'none'; require-trusted-types-for 'script'",
+	"Content-Security-Policy: script-src 'nonce-{random}' 'strict-dynamic'; object-src 'none';",
+	"  base-uri 'none'; frame-ancestors 'none'; require-trusted-types-for 'script'",
+	"Strict-Transport-Security: max-age=63072000; includeSubDomains; preload",
 	"Set-Cookie: session=…; HttpOnly; Secure; SameSite=Lax",
 	"",
 	"# install",

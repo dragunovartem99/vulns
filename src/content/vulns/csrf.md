@@ -1,17 +1,21 @@
 ---
-order: 4
 cwe: 352
+owasp: A01
 title: Cross-site request forgery
-category: cross-origin
+category: cross-site
 severity: high
 sink: |-
-    Cookie-authenticated POST /api/email
+    app.post("/api/email", session, updateEmail)
 payload: |-
     <form method="POST" action="https://app.example/api/email"><input name="email" value="me@evil.sh"></form>
     <script>document.forms[0].submit()</script>
 fix: |
     Set-Cookie: session=…; SameSite=Lax
     // and reject writes unless Sec-Fetch-Site is same-origin
+detect:
+    - '\.(post|put|patch|delete)\(["'']/'
+verify: "While logged in, submit the payload form from another site; if the email changes, the request is forgeable."
+fineWhen: "The cookie is `SameSite=Lax` or `Strict`, no sibling subdomain is untrusted, and writes check `Sec-Fetch-Site` or a token — or auth is a header the browser never adds on its own."
 refs:
     - https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
     - https://portswigger.net/web-security/csrf/bypassing-samesite-restrictions

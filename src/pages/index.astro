@@ -5,10 +5,10 @@ import Baseline from "@/components/Baseline.astro";
 import GlitchText from "@/components/GlitchText.astro";
 import Terminal from "@/components/Terminal.astro";
 import VulnCard from "@/components/VulnCard.astro";
-import { CATEGORIES } from "@/content.config";
+import { CATEGORIES, pageOrder, POSITIONS } from "@/taxonomy";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const entries = (await getCollection("vulns")).toSorted((a, b) => a.data.order - b.data.order);
+const entries = pageOrder(await getCollection("vulns"));
 
 const sections = CATEGORIES.map((category) => ({
 	category,
@@ -21,7 +21,7 @@ const reading = sections.flatMap((section) => section.entries);
 
 <BaseLayout
 	title="VULNS — frontend attack cheatsheet"
-	description="Sinks, payloads and fixes for the ways a frontend gets owned: XSS, prototype pollution, CSRF, CORS, leaked secrets, supply chain and more."
+	description="Sinks, payloads and fixes for the ways a frontend gets owned, filed by where the attacker stands: the network, another site, your own API, your content, your dependencies."
 >
 	<header class="hero wrap" slot="header">
 		<p class="label">// frontend attack surface</p>
@@ -60,6 +60,9 @@ const reading = sections.flatMap((section) => section.entries);
 				<h2 id={`${category}-heading`} class="section-title">
 					<span class="slash">//</span> {category}
 				</h2>
+				<p class="stance">
+					{POSITIONS[category].stance} <span class="model">{POSITIONS[category].model}.</span>
+				</p>
 				{items.map((entry) => (
 					<VulnCard entry={entry} index={reading.indexOf(entry) + 1} total={reading.length} />
 				))}
@@ -124,7 +127,7 @@ const reading = sections.flatMap((section) => section.entries);
 	}
 
 	.section-title {
-		padding-block-end: var(--space-m);
+		padding-block-end: var(--space-xs);
 		font-size: var(--step-1);
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
@@ -132,6 +135,17 @@ const reading = sections.flatMap((section) => section.entries);
 
 	.slash {
 		color: var(--color-red);
+	}
+
+	/* Who "I" am in this section's cards, and the threat model that names it. */
+	.stance {
+		max-width: var(--measure);
+		padding-block-end: var(--space-m);
+		color: var(--color-text-muted);
+	}
+
+	.model {
+		color: var(--color-text-faint);
 	}
 
 	.footer {
