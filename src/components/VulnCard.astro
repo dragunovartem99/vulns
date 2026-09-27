@@ -2,6 +2,8 @@
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 
+import { owaspName, owaspUrl } from "@/taxonomy";
+
 type Props = {
 	entry: CollectionEntry<"vulns">;
 	/** 1-based position across the whole sheet, and its length — the "03 / 14" tag. */
@@ -10,7 +12,7 @@ type Props = {
 };
 
 const { entry, index, total } = Astro.props;
-const { cwe, title, severity, sink, payload, fix, refs } = entry.data;
+const { cwe, owasp, title, severity, sink, payload, fix, refs } = entry.data;
 const { Content } = await render(entry);
 
 const cweUrl = `https://cwe.mitre.org/data/definitions/${cwe}.html`;
@@ -30,6 +32,16 @@ const pad = (n: number): string => String(n).padStart(2, "0");
 		>
 			CWE-{cwe}
 		</a>
+		{owasp && (
+			<a
+				class="owasp label"
+				href={owaspUrl(owasp)}
+				rel="noreferrer noopener"
+				title={owaspName(owasp)}
+			>
+				{owasp}:2025
+			</a>
+		)}
 		<span class="severity label">{severity}</span>
 	</header>
 
@@ -124,14 +136,16 @@ const pad = (n: number): string => String(n).padStart(2, "0");
 		text-decoration: none;
 	}
 
-	.cwe {
+	.cwe,
+	.owasp {
 		padding: 0 var(--space-xs);
 		border: 1px solid var(--color-line);
 		color: var(--color-text-muted);
 		text-decoration: none;
 	}
 
-	.cwe:hover {
+	.cwe:hover,
+	.owasp:hover {
 		border-color: var(--color-text);
 		color: var(--color-text);
 	}

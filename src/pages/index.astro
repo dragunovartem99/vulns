@@ -5,7 +5,7 @@ import Baseline from "@/components/Baseline.astro";
 import GlitchText from "@/components/GlitchText.astro";
 import Terminal from "@/components/Terminal.astro";
 import VulnCard from "@/components/VulnCard.astro";
-import { CATEGORIES } from "@/content.config";
+import { CATEGORIES } from "@/taxonomy";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const entries = (await getCollection("vulns")).toSorted((a, b) => a.data.order - b.data.order);
