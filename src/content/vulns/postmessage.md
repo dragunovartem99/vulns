@@ -1,9 +1,8 @@
 ---
-order: 1
 cwe: 346
 owasp: A07
 title: postMessage without origin check
-category: cross-origin
+category: cross-site
 severity: high
 sink: |-
     addEventListener("message", (e) => (el.innerHTML = e.data))

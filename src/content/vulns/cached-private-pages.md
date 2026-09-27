@@ -1,9 +1,8 @@
 ---
-order: 5
 cwe: 524
 owasp: A01
 title: Personal pages cached as public
-category: secrets
+category: direct
 severity: critical
 sink: |-
     Cache-Control: public, s-maxage=300 # on /account

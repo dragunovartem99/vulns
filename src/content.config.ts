@@ -9,8 +9,6 @@ const vulns = defineCollection({
 	loader: glob({ pattern: "*.md", base: "./src/content/vulns" }),
 	schema: z
 		.object({
-			/** Position within its category. */
-			order: z.number().int().positive(),
 			/** The MITRE Common Weakness Enumeration entry this falls under. */
 			cwe: z.number().int().positive(),
 			/** Its OWASP Top 10:2025 category; absent when no parent of the CWE is mapped. */

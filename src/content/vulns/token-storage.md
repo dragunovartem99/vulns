@@ -1,9 +1,8 @@
 ---
-order: 1
 cwe: 922
 owasp: A01
 title: Tokens in localStorage
-category: secrets
+category: content
 severity: high
 sink: |-
     localStorage.setItem("token", jwt)

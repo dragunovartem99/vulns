@@ -1,9 +1,8 @@
 ---
-order: 3
 cwe: 601
 owasp: A01
 title: Open redirect
-category: cross-origin
+category: cross-site
 severity: medium
 sink: |-
     location.href = params.get("next")

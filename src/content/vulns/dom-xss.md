@@ -1,9 +1,8 @@
 ---
-order: 1
 cwe: 79
 owasp: A05
 title: DOM XSS through innerHTML
-category: injection
+category: content
 severity: critical
 sink: |-
     el.innerHTML = user.bio

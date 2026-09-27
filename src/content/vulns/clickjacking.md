@@ -1,9 +1,8 @@
 ---
-order: 5
 cwe: 1021
 owasp: A06
 title: Clickjacking
-category: cross-origin
+category: cross-site
 severity: medium
 sink: |-
     res.setHeader("Content-Security-Policy", "default-src 'self'")

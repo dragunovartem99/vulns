@@ -1,9 +1,8 @@
 ---
-order: 5
 cwe: 1336
 owasp: A05
 title: Client-side template injection
-category: injection
+category: content
 severity: high
 sink: |-
     <div id="app"><p><?= htmlspecialchars($bio) ?></p></div>

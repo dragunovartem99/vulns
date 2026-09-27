@@ -1,9 +1,8 @@
 ---
-order: 11
 cwe: 693
 owasp: A06
 title: A CSP that stops nothing
-category: injection
+category: content
 severity: high
 sink: |-
     Content-Security-Policy: script-src 'self' 'unsafe-inline' https:

@@ -1,9 +1,8 @@
 ---
-order: 7
 cwe: 79
 owasp: A05
 title: Uploaded SVG served from your origin
-category: injection
+category: content
 severity: high
 sink: |-
     <a href="/uploads/avatar.svg">View full size</a>

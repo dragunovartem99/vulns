@@ -1,9 +1,8 @@
 ---
-order: 2
 cwe: 79
 owasp: A05
 title: Server state inlined into a script
-category: injection
+category: content
 severity: high
 sink: |-
     <script>window.__STATE__ = ${JSON.stringify(state)}</script>

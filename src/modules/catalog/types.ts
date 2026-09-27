@@ -41,7 +41,16 @@ export type CatalogEntry = {
 export type CatalogGroup = {
 	id: string;
 	title: string;
+	/** What belongs here, in one line. */
+	summary: string;
+	/** The group's official breakdown, in order; empty when it has none. */
 	phases: { id: string; title: string }[];
+};
+
+/** Why entries are grouped as they are: the rule, and the sources it rests on. */
+export type CatalogBasis = {
+	rule: string;
+	sources: string[];
 };
 
 /** The whole sheet as data, served as `catalog.json`. */
@@ -50,6 +59,7 @@ export type Catalog = {
 	/** Bumped when the shape of an entry changes. */
 	version: 1;
 	url: string;
+	basis: CatalogBasis;
 	groups: CatalogGroup[];
 	entries: CatalogEntry[];
 };

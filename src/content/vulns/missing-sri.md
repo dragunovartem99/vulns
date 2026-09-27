@@ -1,5 +1,4 @@
 ---
-order: 4
 cwe: 829
 owasp: A08
 title: Third-party script without SRI

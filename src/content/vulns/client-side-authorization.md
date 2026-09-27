@@ -1,9 +1,8 @@
 ---
-order: 1
 cwe: 602
 owasp: A06
 title: Authorization in the client
-category: logic
+category: direct
 severity: critical
 sink: |-
     {user.role === "admin" && <DeleteButton />}

@@ -1,9 +1,8 @@
 ---
-order: 9
 cwe: 79
 owasp: A05
 title: DOM clobbering
-category: injection
+category: content
 severity: medium
 sink: |-
     script.src = window.config?.cdn || "/app.js"

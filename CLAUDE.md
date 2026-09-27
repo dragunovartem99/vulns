@@ -13,6 +13,8 @@
 - DO keep every `src/modules/<name>` self-contained: `utils/`, `types.ts`, and an `index.ts` barrel exporting only the public surface
 - DO keep pure math in `utils/` so it is testable without a canvas or DOM
 - DO keep one vulnerability per file in `src/content/vulns/`, tagged with its real MITRE CWE id; the schema in `src/content.config.ts` is the contract
+- DO file every entry by the rule in `src/taxonomy/positions.ts`: the attacker position its payload is delivered from — never by feel
+- DO NOT order entries by hand: page order is derived (`src/taxonomy/order.ts`)
 - DO tag `owasp` with the OWASP Top 10:2025 category that lists the CWE, or its nearest listed parent; omit it when none does
 - DO write `sink` as the code in the target's repo, not prose — `detect` must match it
 - DO keep `detect` to single-line regexes without lookaround or backreferences, so ripgrep runs them too; narrow false positives in `fineWhen`

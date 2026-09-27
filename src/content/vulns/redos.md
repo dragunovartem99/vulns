@@ -1,8 +1,7 @@
 ---
-order: 2
 cwe: 1333
 title: Regular expression DoS
-category: logic
+category: direct
 severity: medium
 sink: |-
     /^(\w+\s?)*$/.test(input)

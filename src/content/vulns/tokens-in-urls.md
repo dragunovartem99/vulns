@@ -1,9 +1,8 @@
 ---
-order: 4
 cwe: 598
 owasp: A06
 title: Tokens in URLs
-category: secrets
+category: supply-chain
 severity: high
 sink: |-
     https://app.example/reset-password?token=8f3a9c…

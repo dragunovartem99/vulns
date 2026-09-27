@@ -1,9 +1,8 @@
 ---
-order: 3
 cwe: 79
 owasp: A05
 title: "javascript: URLs in links"
-category: injection
+category: content
 severity: high
 sink: |-
     <a :href="user.website">

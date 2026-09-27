@@ -1,5 +1,4 @@
 ---
-order: 2
 cwe: 1357
 owasp: A03
 title: Installing releases the minute they ship

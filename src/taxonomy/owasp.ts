@@ -1,17 +1,3 @@
-/** Where in the stack the hole is — also the order sections appear in. */
-export const CATEGORIES = [
-	"injection",
-	"cross-origin",
-	"secrets",
-	"supply-chain",
-	"logic",
-] as const;
-
-export type Category = (typeof CATEGORIES)[number];
-
-/** How bad it gets when it lands. Red density on the card scales with it. */
-export const SEVERITIES = ["critical", "high", "medium"] as const;
-
 /**
  * The OWASP Top 10:2025 by id and page slug. An entry takes the category its
  * CWE — or that CWE's nearest mapped parent — is listed under.

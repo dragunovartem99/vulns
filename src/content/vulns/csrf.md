@@ -1,9 +1,8 @@
 ---
-order: 6
 cwe: 352
 owasp: A01
 title: Cross-site request forgery
-category: cross-origin
+category: cross-site
 severity: high
 sink: |-
     app.post("/api/email", session, updateEmail)

@@ -1,5 +1,4 @@
 ---
-order: 5
 cwe: 829
 owasp: A08
 title: Third-party scripts on the payment page

@@ -1,9 +1,8 @@
 ---
-order: 8
 cwe: 1321
 owasp: A08
 title: Prototype pollution
-category: injection
+category: direct
 severity: high
 sink: |-
     deepMerge(config, JSON.parse(input))

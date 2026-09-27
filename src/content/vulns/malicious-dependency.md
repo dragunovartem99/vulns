@@ -1,5 +1,4 @@
 ---
-order: 1
 cwe: 506
 owasp: A08
 title: Malicious dependency

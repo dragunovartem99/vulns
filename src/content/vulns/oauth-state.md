@@ -1,9 +1,8 @@
 ---
-order: 4
 cwe: 352
 owasp: A01
 title: OAuth without state or PKCE
-category: cross-origin
+category: cross-site
 severity: high
 sink: |-
     location.href = `${idp}/authorize?response_type=code&client_id=${id}&redirect_uri=${cb}`

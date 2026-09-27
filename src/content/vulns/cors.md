@@ -1,9 +1,8 @@
 ---
-order: 7
 cwe: 942
 owasp: A02
 title: CORS reflecting any origin
-category: cross-origin
+category: cross-site
 severity: critical
 sink: |-
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin);

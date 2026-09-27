@@ -1,9 +1,8 @@
 ---
-order: 3
 cwe: 540
 owasp: A01
 title: Source maps in production
-category: secrets
+category: direct
 severity: medium
 sink: |-
     build: { sourcemap: true }

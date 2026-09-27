@@ -1,9 +1,8 @@
 ---
-order: 2
 cwe: 540
 owasp: A01
 title: Secrets in the bundle
-category: secrets
+category: direct
 severity: critical
 sink: |-
     new Stripe(import.meta.env.VITE_STRIPE_SECRET)

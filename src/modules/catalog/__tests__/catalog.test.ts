@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { toEntry } from "../utils/entry";
 import { detects, isPattern } from "../utils/pattern";
+import { byPlace } from "../utils/place";
 
 describe("isPattern", () => {
 	it("accepts a regex both engines read", () => {
@@ -21,6 +22,23 @@ describe("isPattern", () => {
 	});
 });
 
+// An entry reduced to what places it.
+function at(phase: number, severity: "critical" | "high" | "medium", title: string) {
+	return { phase, severity, title };
+}
+
+describe("byPlace", () => {
+	it("orders by phase, then the worst first, then by title", () => {
+		const sorted = [
+			at(1, "critical", "D"),
+			at(0, "medium", "C"),
+			at(0, "high", "B"),
+			at(0, "high", "A"),
+		].toSorted(byPlace);
+		expect(sorted.map(({ title }) => title)).toEqual(["A", "B", "C", "D"]);
+	});
+});
+
 describe("detects", () => {
 	it("finds code any one pattern matches, line by line", () => {
 		const code = "const a = 1;\nel.innerHTML = bio;";
@@ -37,7 +55,7 @@ describe("toEntry", () => {
 			cwe: 79,
 			owasp: "A05",
 			title: "DOM XSS through innerHTML",
-			category: "injection",
+			category: "content",
 			severity: "critical" as const,
 			sink: "el.innerHTML = user.bio\n",
 			payload: "<img src=x onerror=alert(1)>",

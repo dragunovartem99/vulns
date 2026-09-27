@@ -1,9 +1,8 @@
 ---
-order: 4
 cwe: 79
 owasp: A05
 title: Markdown rendered as HTML
-category: injection
+category: content
 severity: critical
 sink: |-
     el.innerHTML = marked.parse(message.text)

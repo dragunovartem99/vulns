@@ -1,9 +1,8 @@
 ---
-order: 2
 cwe: 201
 owasp: A01
 title: postMessage to any origin
-category: cross-origin
+category: cross-site
 severity: high
 sink: |-
     window.opener.postMessage({ token }, "*")
