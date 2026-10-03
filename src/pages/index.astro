@@ -23,7 +23,10 @@ const reading = sections.flatMap((section) => section.entries);
 	title="VULNS — frontend attack cheatsheet"
 	description="Sinks, payloads and fixes for the ways a frontend gets owned, filed by where the attacker stands: the network, another site, your own API, your content, your dependencies."
 >
-	<header class="hero wrap" slot="header">
+	<header
+		class="hero wrap"
+		slot="header"
+	>
 		<p class="label">// frontend attack surface</p>
 		<h1 class="name">
 			<GlitchText text="VULNS" />
@@ -34,7 +37,10 @@ const reading = sections.flatMap((section) => section.entries);
 		<Terminal count={entries.length} />
 	</header>
 
-	<nav class="index wrap" aria-label="Categories">
+	<nav
+		class="index wrap"
+		aria-label="Categories"
+	>
 		<ol>
 			{sections.map(({ category, entries: items }, index) => (
 				<li>
@@ -56,25 +62,40 @@ const reading = sections.flatMap((section) => section.entries);
 
 	<div class="wrap">
 		{sections.map(({ category, entries: items }) => (
-			<section id={category} class="section" aria-labelledby={`${category}-heading`}>
-				<h2 id={`${category}-heading`} class="section-title">
+			<section
+				id={category}
+				class="section"
+				aria-labelledby={`${category}-heading`}
+			>
+				<h2
+					id={`${category}-heading`}
+					class="section-title"
+				>
 					<span class="slash">//</span> {category}
 				</h2>
 				<p class="stance">
-					{POSITIONS[category].stance} <span class="model">{POSITIONS[category].model}.</span>
+					{POSITIONS[category].stance}{" "}
+					<span class="model">{POSITIONS[category].model}.</span>
 				</p>
 				{items.map((entry) => (
-					<VulnCard entry={entry} index={reading.indexOf(entry) + 1} total={reading.length} />
+					<VulnCard
+						entry={entry}
+						index={reading.indexOf(entry) + 1}
+						total={reading.length}
+					/>
 				))}
 			</section>
 		))}
 		<Baseline />
 	</div>
 
-	<footer class="footer wrap" slot="footer">
+	<footer
+		class="footer wrap"
+		slot="footer"
+	>
 		<p>
-			This page ships a strict Content-Security-Policy, no inline handlers, no third-party requests.
-			Found a hole in it? That would be ironic.
+			This page ships a strict Content-Security-Policy, no inline handlers, no third-party
+			requests. Found a hole in it? That would be ironic.
 		</p>
 		<p>
 			<a href="https://dragunov.dev">Artem Dragunov</a> ·{" "}

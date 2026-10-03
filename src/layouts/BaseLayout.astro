@@ -19,38 +19,86 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
 		<title>{title}</title>
-		<meta name="description" content={description} />
-		<link rel="canonical" href={canonical} />
-		<link rel="icon" href={withBase("favicon.svg")} type="image/svg+xml" />
-		<meta name="theme-color" content="#050505" />
-		<meta name="referrer" content="no-referrer" />
-		{noindex && <meta name="robots" content="noindex" />}
+		<meta
+			name="description"
+			content={description}
+		/>
+		<link
+			rel="canonical"
+			href={canonical}
+		/>
+		<link
+			rel="icon"
+			href={withBase("favicon.svg")}
+			type="image/svg+xml"
+		/>
+		<meta
+			name="theme-color"
+			content="#050505"
+		/>
+		<meta
+			name="referrer"
+			content="no-referrer"
+		/>
+		{noindex && (
+			<meta
+				name="robots"
+				content="noindex"
+			/>
+		)}
 
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonical} />
+		<meta
+			property="og:type"
+			content="website"
+		/>
+		<meta
+			property="og:title"
+			content={title}
+		/>
+		<meta
+			property="og:description"
+			content={description}
+		/>
+		<meta
+			property="og:url"
+			content={canonical}
+		/>
 
-		<Font cssVariable="--font-mono" preload />
+		<Font
+			cssVariable="--font-mono"
+			preload
+		/>
 	</head>
 
 	<body>
-		<a class="skip-link" href="#main">
+		<a
+			class="skip-link"
+			href="#main"
+		>
 			Skip to content
 		</a>
 
 		<slot name="header" />
 
-		<main id="main" tabindex="-1">
+		<main
+			id="main"
+			tabindex="-1"
+		>
 			<slot />
 		</main>
 
 		<slot name="footer" />
 
 		{/* The glass: bezel, grain, scanlines and glitches laid over everything. */}
-		<canvas id="glitch" aria-hidden="true"></canvas>
+		<canvas
+			id="glitch"
+			aria-hidden="true"
+		></canvas>
 
 		<script>
 			import { mountGlitch } from "@/modules/glitch";

@@ -19,9 +19,16 @@ const cweUrl = `https://cwe.mitre.org/data/definitions/${cwe}.html`;
 const pad = (n: number): string => String(n).padStart(2, "0");
 ---
 
-<article class="card" id={entry.id} data-severity={severity}>
+<article
+	class="card"
+	id={entry.id}
+	data-severity={severity}
+>
 	<header class="head">
-		<a class="index label" href={`#${entry.id}`}>
+		<a
+			class="index label"
+			href={`#${entry.id}`}
+		>
 			{pad(index)} / {pad(total)}
 		</a>
 		<a
@@ -49,7 +56,10 @@ const pad = (n: number): string => String(n).padStart(2, "0");
 
 	<p class="sink">
 		<span class="label">Sink</span>
-		<span class="arrow" aria-hidden="true">
+		<span
+			class="arrow"
+			aria-hidden="true"
+		>
 			→
 		</span>
 		<code>{sink}</code>
@@ -61,7 +71,12 @@ const pad = (n: number): string => String(n).padStart(2, "0");
 			<figcaption class="bar">
 				<span class="tag label">▲ Payload</span>
 				{/* Revealed by the script: without JavaScript the text is still selectable. */}
-				<button class="copy label" type="button" data-copy={payload} hidden>
+				<button
+					class="copy label"
+					type="button"
+					data-copy={payload}
+					hidden
+				>
 					Copy
 				</button>
 			</figcaption>
@@ -83,7 +98,10 @@ const pad = (n: number): string => String(n).padStart(2, "0");
 	<ul class="refs">
 		{refs.map((ref) => (
 			<li>
-				<a href={ref} rel="noreferrer noopener">
+				<a
+					href={ref}
+					rel="noreferrer noopener"
+				>
 					{new URL(ref).hostname}
 				</a>
 			</li>
