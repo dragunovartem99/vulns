@@ -29,7 +29,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.10",
-		"@dragunovartem99/oxfmt-config": "^2.1.0",
+		"@dragunovartem99/oxfmt-config": "^2.2.0",
 		"@dragunovartem99/oxlint-config": "^3.0.1",
 		"@types/node": "^26.6.3",
 		"husky": "^9.1.7",

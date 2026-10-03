@@ -12,7 +12,10 @@ type Props = {
 const { text, as: Tag = "span" } = Astro.props;
 ---
 
-<Tag class="glitch" data-text={text}>
+<Tag
+	class="glitch"
+	data-text={text}
+>
 	{text}
 </Tag>
 
