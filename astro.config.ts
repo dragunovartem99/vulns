@@ -26,10 +26,9 @@ export default defineConfig({
 		},
 	],
 
-	// A cheatsheet about frontend attacks should not be one. Pages cannot send
-	// headers, so Astro emits the policy as a `<meta>` tag and hashes every
-	// script and style it inlines. `frame-ancestors` is ignored in a meta tag —
-	// the one directive GitHub Pages leaves out of reach (see clickjacking.md).
+	// Pages can't send headers, so the CSP ships as a `<meta>` tag with hashed
+	// inline scripts and styles. `frame-ancestors` is ignored there — the one
+	// directive out of reach on GitHub Pages (see clickjacking.md).
 	security: {
 		csp: {
 			algorithm: "SHA-256",

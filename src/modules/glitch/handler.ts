@@ -1,19 +1,15 @@
-/**
- * The drawing loop, identical wherever it runs: fed plain messages, it owns the
- * context and the clock. `worker.ts` wires it to `postMessage`; the main-thread
- * fallback calls it directly.
- */
+// The drawing loop, identical wherever it runs: fed plain messages, it owns the
+// context and the clock. `worker.ts` wires it to `postMessage`; the main-thread
+// fallback calls it directly.
 
 import { createRenderer } from "./renderer";
 import type { Renderer } from "./renderer";
 import type { DriverMessage, GlitchMessage } from "./types";
 import { BURST_DURATION, burstEnvelope } from "./utils/envelope";
 
-/**
- * The buffer is drawn at half the CSS size and stretched. Grain and scanlines
- * are meant to be coarse, so the lost resolution is the look — and it is a
- * quarter of the fill rate.
- */
+// The buffer is drawn at half the CSS size and stretched. Grain and scanlines
+// are meant to be coarse, so the lost resolution is the look — and it is a
+// quarter of the fill rate.
 const RESOLUTION_SCALE = 0.5;
 
 /** Nothing on screen moves faster than 24 steps a second, so 30 fps is plenty. */

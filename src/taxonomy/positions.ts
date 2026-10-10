@@ -1,9 +1,6 @@
-/**
- * Sections are where the attacker stands, from the outside in. The positions
- * are the threat models of Akhawe et al. — network, web and gadget attacker —
- * with the web attacker split by whose browser carries the attack, plus the
- * supply-chain attacker OWASP gave its own category in 2025.
- */
+// Where the attacker stands, outside in: Akhawe et al.'s network, web and gadget
+// attackers, the web one split by whose browser carries the attack, plus
+// OWASP 2025's supply-chain attacker.
 export const BASIS = {
 	rule:
 		"An entry goes under the position its payload is delivered from: what the attacker must " +

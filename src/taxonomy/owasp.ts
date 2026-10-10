@@ -1,7 +1,5 @@
-/**
- * The OWASP Top 10:2025 by id and page slug. An entry takes the category its
- * CWE — or that CWE's nearest mapped parent — is listed under.
- */
+// The OWASP Top 10:2025 by id and page slug. An entry takes the category its
+// CWE — or that CWE's nearest mapped parent — is listed under.
 export const OWASP = {
 	A01: "Broken_Access_Control",
 	A02: "Security_Misconfiguration",

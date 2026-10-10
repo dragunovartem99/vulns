@@ -1,7 +1,5 @@
-/**
- * The page side: picks where the loop runs, hands it the canvas, and forwards
- * what only the DOM can see — size, visibility, motion preference, bursts.
- */
+// The page side: picks where the loop runs, hands it the canvas, and forwards
+// what only the DOM can see — size, visibility, motion preference, bursts.
 
 import type { DriverMessage, GlitchMessage } from "./types";
 

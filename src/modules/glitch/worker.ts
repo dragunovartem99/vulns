@@ -1,7 +1,5 @@
-/**
- * The worker entry: the loop runs here, off the main thread, so scrolling and
- * the page's own work never cost the overlay a frame — or the other way round.
- */
+// The worker entry: the loop runs here, off the main thread, so scrolling and
+// the page's own work never cost the overlay a frame — or the other way round.
 
 import { handleGlitchMessage, setReporter } from "./handler";
 import type { DriverMessage, GlitchMessage } from "./types";
