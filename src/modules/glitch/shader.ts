@@ -1,35 +1,20 @@
 import { RED } from "./palette";
 
-/**
- * How hard the glass bends: how far past the edge the corners of the screen
- * reach, as a fraction of the half-extent. The page itself never moves — the
- * curve lives in the bezel, the scanlines and the glitches, which is enough for
- * the eye, draws the same in every browser, and costs nothing to scroll under.
- */
+// How far past the edge the screen corners reach, as a fraction of the
+// half-extent. Only the overlay curves — the page itself never moves.
 export const CURVATURE = 0.22;
 
-/**
- * One triangle that covers the whole clip space, built from the vertex index
- * alone — no buffers, no attributes.
- */
+// One triangle that covers the whole clip space, built from the vertex index
+// alone — no buffers, no attributes.
 export const VERTEX = `#version 300 es
 void main() {
 	vec2 corner = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));
 	gl_Position = vec4(corner * 2.0 - 1.0, 0.0, 1.0);
 }`;
 
-/**
- * The whole look, layered bottom to top with premultiplied "over": vignette,
- * scanlines, a rolling band, film grain, glitch slips, then the glass — a rim
- * glow, a reflection, and the bezel eating the corners.
- *
- * Everything that should follow the curve is drawn in warped space: the point
- * pushed outward by \`q · (1 + k·ρ⁴)\`, with ρ² = |q|² / 2 reaching 1 at the
- * corners. ρ⁴ keeps the middle flat and spends the curve on the rim.
- *
- * Grain is re-rolled at 24 steps a second whatever the refresh rate, so it reads
- * as film rather than static, and a 120 Hz screen costs no more than a 60 Hz one.
- */
+// Warp: q · (1 + k·ρ⁴), ρ² = |q|² / 2 reaching 1 at the corners — ρ⁴ keeps the
+// middle flat. Grain re-rolls at a fixed 24 steps a second, so it reads as film
+// and a 120 Hz screen costs no more than 60 Hz.
 export const FRAGMENT = `#version 300 es
 precision highp float;
 
